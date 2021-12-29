@@ -1,5 +1,15 @@
-# Object file
-*.o
 
-# Ada Library Information
-*.ali
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# production
+/build
+
+# misc
+.DS_Store
+.env.local
