@@ -7,6 +7,17 @@ const chromedriver = require('chromedriver');
 chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build());
 const driver = new webdriver.Builder().forBrowser('chrome').build();
 
+//=====Additional Feature ======- 'product' buying feature for cookie clicking boosts
+//Create function to check if 'products' array is empty, if it isn't then click on it's last element. Why last? This game lists upgrades from worst to best, with a choice between two we will always choose the better upgrade
+const checkProducts = async () => {
+    //findElements returns Promise opposed to findElement which returns a ready-to-use WebElement. We do not want to assign the 'products' Promise variable, but what the Promise returns instead. 
+    //The await in the variable definition forces us to be asynchronous in our funciton
+    const products = await driver.findElements({className: 'product unlocked enabled'});
+    if (products.length > 0) {
+        products.pop().click(); 
+    }
+}
+
 //Define target element on screen for bot -- in this case the big cookie
 
 const cookieEl = driver.findElement({id: 'bigCookie'}); 
@@ -17,16 +28,9 @@ const startInterval = () => {
     const cookieEl = driver.findElement({id: 'bigCookie'});
     setInterval(() => {
         cookieEl.click();
+        await checkProducts(); //checks for 'products' to upgrade
     }, 500); //set for every half second
 };
-
-//Additional Feature - 'product' buying feature for cookie clicking boosts
-//findElements returns Promise opposed to findElement which returns a ready-to-use WebElement. We do not want to assign the 'products' Promise variable, but what the Promise returns instead. 
-//The await in the variable definition forces us to be asynchronous in our funciton
-const products = await driver.findElements({className: 'product unlocked enabled'});
-
-//Create function to check if 'products' array is empty, if it isn't then click on it's last element. Why last? This game lists upgrades from worst to best, with a choice between two we will always choose the better upgrade
-
 
 //Create function for bot to initialize
 const init = () => {
