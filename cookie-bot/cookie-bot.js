@@ -8,7 +8,7 @@ chrome.setDefaultService(new chrome.ServiceBuilder(chromedriver.path).build());
 const driver = new webdriver.Builder().forBrowser('chrome').build();
 
 //Define target element on screen for bot -- in this case the big cookie
-driver.wait(webdriver.until.elementLocated({id: 'bigCookie'})); // tells bot to wait until element is found so an error is not returned
+
 const cookieEl = driver.findElement({id: 'bigCookie'}); 
 cookieEl.click();
 
@@ -23,7 +23,8 @@ const startInterval = () => {
 //Create function for bot to GET website
 const init = () => {
     driver.get('https://orteil.dashnet.org/cookieclicker/');
-    
+    driver.wait(webdriver.until.elementLocated({id: 'bigCookie'})); // tells bot to wait until element is found so an error is not returned
+    startInterval();
 };
 
 init();
