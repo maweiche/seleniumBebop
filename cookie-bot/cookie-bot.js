@@ -26,7 +26,7 @@ cookieEl.click();
 //Create an interval for bot to operate, or else bot will just perform task once
 const startInterval = () => {
     const cookieEl = driver.findElement({id: 'bigCookie'});
-    setInterval(() => {
+    setInterval(async () => {
         cookieEl.click();
         await checkProducts(); //checks for 'products' to upgrade
     }, 500); //set for every half second
